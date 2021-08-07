@@ -1,0 +1,36 @@
+<!-- HTML 5-->
+<!DOCTYPE HTML>
+<html>
+    <head>Hello</head>
+    <body>
+        <noscript>You need to enable JavaScript to run this app.</noscript>
+        <div>
+            <button onclick="sayHi()">BUTTON</button>
+        </div>
+    
+        <script type="text/javascript">
+            function sayHi() {
+                alert("HI!");
+                const {Builder, By, Key, until} = require('selenium-webdriver');
+
+                (async function example() {
+                    let driver = await new Builder().forBrowser('chrome').build();
+                    try {
+                        // Navigate to Url
+                        await driver.get('https://www.google.com');
+
+                        // Enter text "cheese" and perform keyboard action "Enter"
+                        await driver.findElement(By.name('q')).sendKeys('cheese', Key.ENTER);
+
+                        let firstResult = await driver.wait(until.elementLocated(By.css('h3>div')), 10000);
+
+                        console.log(await firstResult.getAttribute('textContent'));
+                    }
+                    finally{
+                        driver.quit();
+                    }
+                })();
+            }
+        </script>
+    </body>
+</html>
